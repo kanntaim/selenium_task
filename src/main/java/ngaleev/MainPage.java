@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class MainPage {
-    By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]");
+    By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
 
     private final WebDriver driver;
 
