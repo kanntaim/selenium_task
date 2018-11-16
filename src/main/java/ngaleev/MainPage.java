@@ -2,6 +2,7 @@ package ngaleev;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MainPage {
     By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]");
@@ -11,13 +12,14 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         this.driver = driver;
 
-        if (!"Яндекс.Маркет".equals(driver.getTitle().split(" ")[0])) {
+        if (!driver.getTitle().startsWith("Яндекс.Маркет")) {
             throw new IllegalStateException("This is not the main page");
         }
     }
 
-    public LoginPage submitLogin(){
-        driver.findElement(loginLocator).submit();
-        return new LoginPage(driver);
+    public WebDriver submitLogin(){
+        WebElement loginButton  = driver.findElement(loginLocator);
+        loginButton.click();
+        return driver;
     }
 }
