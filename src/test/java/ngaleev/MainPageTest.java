@@ -14,7 +14,7 @@ public class MainPageTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "/home/user/bin");
+        System.setProperty("webdriver.gecko.driver", "src/resources/geckodriver.exe");
         driver = new FirefoxDriver();
         driver.get("market.yandex.ru");
     }
