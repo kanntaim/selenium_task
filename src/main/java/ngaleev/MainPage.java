@@ -19,7 +19,7 @@ public class MainPage {
 
     public WebDriver submitLogin(){
         WebElement loginButton  = driver.findElement(loginLocator);
-        loginButton.click();
+        loginButton.click(); //FIXME
         return driver;
     }
 }
