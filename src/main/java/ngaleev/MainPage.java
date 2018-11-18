@@ -4,8 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class MainPage {
-    By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
+    private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
 
     private final WebDriver driver;
 
@@ -18,8 +20,12 @@ public class MainPage {
     }
 
     public WebDriver submitLogin(){
-        WebElement loginButton  = driver.findElement(loginLocator);
-        loginButton.click(); //FIXME
+        List<WebElement> loginButtons  = driver.findElements(loginLocator);
+        for(WebElement button: loginButtons){
+            if(button.isEnabled() && button.isDisplayed()){
+                button.click();
+            }
+        }
         return driver;
     }
 }

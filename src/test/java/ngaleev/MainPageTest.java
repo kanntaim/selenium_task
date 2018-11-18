@@ -3,6 +3,8 @@ package ngaleev;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,9 +19,9 @@ public class MainPageTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/resources/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "src/resources/drivers/win32/geckodriver.exe");
         driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://market.yandex.ru/");
     }
 
