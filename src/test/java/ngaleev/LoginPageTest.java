@@ -11,12 +11,12 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertTrue;
 
 public class LoginPageTest {
-    private WebDriver driver;
+    private WebDriverSingleton driver;
 
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "src/resources/drivers/win64/geckodriver.exe");
-        driver = new FirefoxDriver();
+        driver = WebDriverSingleton.getInstance();
         driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         driver.get("https://market.yandex.ru/");
     }
@@ -27,10 +27,12 @@ public class LoginPageTest {
     }
 
     @Test
-    public void testInputLogin(){
-        MainPage mainPage = new MainPage(driver);
+    public void testAutorise(){
+        MainPage mainPage = new MainPage();
         LoginPage loginPage = mainPage.navigateLogin();
-        loginPage = loginPage.inputLogin("ivan.ivanoff");
+        loginPage = loginPage.inputLogin("r2d2.and.c3po");
+        loginPage = loginPage.inputPassword("25672478r2d2");
         assertTrue(driver.getTitle().equals("Авторизация"));//FIXME
     }
+
 }
