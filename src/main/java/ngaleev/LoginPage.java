@@ -20,25 +20,13 @@ public class LoginPage {
         }
     }
 
-    public LoginPage inputLogin(String login){
-        WebElement inputField = driver.findElement(loginInputLocator);
-        try {
-            inputField.sendKeys(login);
-            inputField.submit();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-        return this;
-    }
-
-    public LoginPage inputPassword(String pass){
-        WebElement inputField = driver.findElement(passwordInputLocator);
-        try {
-            inputField.sendKeys(pass);
-            inputField.submit();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+    public LoginPage authorize(String login, String pass){
+        WebElement txbLogin = driver.findElement(loginInputLocator);
+        txbLogin.sendKeys(login);
+        txbLogin.submit();
+        WebElement txbPassword = driver.findElement(passwordInputLocator);
+        txbPassword.sendKeys(pass);
+        txbPassword.submit();
         return this;
     }
 }

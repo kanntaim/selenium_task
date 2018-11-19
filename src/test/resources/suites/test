@@ -2,7 +2,7 @@
 <suite name="Component Tests" verbose="2" annotations="JDK">
     <test name="test">
         <classes>
-            <class name="ngaleev.MainPageTest" />
+            <class name="ngaleev.TestCasePopularItems" />
         </classes>
     </test>
 </suite>
