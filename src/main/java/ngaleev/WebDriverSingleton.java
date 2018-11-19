@@ -1,9 +1,10 @@
 package ngaleev;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverSingleton extends FirefoxDriver {
@@ -17,10 +18,13 @@ public class WebDriverSingleton extends FirefoxDriver {
         this.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
     }
 
-    public void closeActiveTab(){
-        Actions closeTab = new Actions(this);
-        closeTab.keyDown(Keys.LEFT_CONTROL).keyDown("w").keyUp(Keys.LEFT_CONTROL).keyUp("w").perform();
-        this.switchTo().window(this.getWindowHandle());
+    public void switchTab(int number){
+        ArrayList<String> tabs = new ArrayList<>(this.getWindowHandles());
+        if (number>=0){
+            this.switchTo().window(tabs.get(number));
+        }else{
+            this.switchTo().window(tabs.get(tabs.size()+number));
+        }
     }
 
 }

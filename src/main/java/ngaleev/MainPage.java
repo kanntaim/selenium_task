@@ -22,8 +22,7 @@ public class MainPage {
         for(WebElement button: loginButtons){
             if(button.isEnabled() && button.isDisplayed()){
                 button.click();
-                ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-                driver.switchTo().window(tabs.get(tabs.size()-1));
+                driver.switchTab(-1);
                 return new LoginPage();
             }
         }

@@ -27,7 +27,7 @@ public class TestYandex {
         assertTrue(driver.getTitle().equals("Авторизация"));
 
         loginPage = loginPage.authorize("r2d2.and.c3po", "25672478r2d2");
-        driver.closeActiveTab();
+        driver.switchTab(0);
         assertTrue(driver.getTitle().startsWith("Яндекс"));//FIXME
     }
 
