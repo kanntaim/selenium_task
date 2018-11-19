@@ -29,8 +29,8 @@ public class LoginPageTest {
     @Test
     public void testInputLogin(){
         MainPage mainPage = new MainPage(driver);
-        LoginPage loginPage = new LoginPage(mainPage.navigateLogin());
-        driver = loginPage.inputLogin("123456qwerty");
-        assertTrue(driver.getTitle().equals("Авторизация"));
+        LoginPage loginPage = mainPage.navigateLogin();
+        loginPage = loginPage.inputLogin("ivan.ivanoff");
+        assertTrue(driver.getTitle().equals("Авторизация"));//FIXME
     }
 }

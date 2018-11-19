@@ -31,7 +31,7 @@ public class MainPageTest {
     @Test
     public void testLogInButton(){
         MainPage page = new MainPage(driver);
-        driver = page.navigateLogin();
+        LoginPage loginPage = page.navigateLogin();
         assertTrue(driver.getTitle().equals("Авторизация"));
     }
 }

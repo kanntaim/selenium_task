@@ -20,14 +20,14 @@ public class MainPage {
         }
     }
 
-    public WebDriver navigateLogin(){
+    public LoginPage navigateLogin(){
         List<WebElement> loginButtons  = driver.findElements(loginLocator);
         for(WebElement button: loginButtons){
             if(button.isEnabled() && button.isDisplayed()){
                 button.click();
                 ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
                 driver.switchTo().window(tabs.get(tabs.size()-1));
-                return driver;
+                return new LoginPage(driver);
             }
         }
         throw new IllegalStateException("Login button not found");

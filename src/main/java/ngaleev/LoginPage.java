@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage {
-    private final By loginInputLocator =  By.xpath("//span[contains(text(), \"Логин или номер телефона\")]/../..//input");
+    private final By loginInputLocator =  By.xpath("//span[contains(text(), \"Логин или номер телефона\")]/../..//input");//FIXME 3 login pages
+    //private final By passwordInputLocator =
 
 
 
@@ -19,7 +20,7 @@ public class LoginPage {
         }
     }
 
-    public WebDriver inputLogin(String login){
+    public LoginPage inputLogin(String login){
         WebElement inputField = driver.findElement(loginInputLocator);
         try {
             inputField.sendKeys(login);
@@ -27,6 +28,6 @@ public class LoginPage {
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
-        return driver;
+        return this;
     }
 }
