@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage {
-    private final By loginInputLocator =  By.id("passp-field-login");
+    private final By loginInputLocator =  By.xpath("//span[contains(text(), \"Логин или номер телефона\")]/../..//input");
+
 
 
     private final WebDriver driver;
