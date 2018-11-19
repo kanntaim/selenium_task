@@ -8,11 +8,9 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class MainPageTest {
-
+public class LoginPageTest {
     private WebDriver driver;
 
     @BeforeClass
@@ -29,9 +27,10 @@ public class MainPageTest {
     }
 
     @Test
-    public void testLogInButton(){
-        MainPage page = new MainPage(driver);
-        driver = page.navigateLogin();
+    public void testInputLogin(){
+        MainPage mainPage = new MainPage(driver);
+        LoginPage loginPage = new LoginPage(mainPage.navigateLogin());
+        driver = loginPage.inputLogin("123456qwerty");
         assertTrue(driver.getTitle().equals("Авторизация"));
     }
 }

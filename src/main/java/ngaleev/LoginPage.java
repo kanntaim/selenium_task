@@ -1,8 +1,13 @@
 package ngaleev;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage {
+    private final By loginInputLocator =  By.id("passp-field-login");
+
+
     private final WebDriver driver;
 
     public LoginPage(WebDriver driver) {
@@ -11,5 +16,16 @@ public class LoginPage {
         if (!"Авторизация".equals(driver.getTitle())) {
             throw new IllegalStateException("This is not the main page");
         }
+    }
+
+    public WebDriver inputLogin(String login){
+        WebElement inputField = driver.findElement(loginInputLocator);
+        try {
+            inputField.sendKeys(login);
+            inputField.submit();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+        return driver;
     }
 }
