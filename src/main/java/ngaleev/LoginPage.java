@@ -7,8 +7,6 @@ public class LoginPage {
     private final By loginInputLocator =  By.name("login");
     private final By passwordInputLocator = By.name("passwd");
 
-
-
     private final WebDriverSingleton driver = WebDriverSingleton.getInstance();
 
     public LoginPage() {
