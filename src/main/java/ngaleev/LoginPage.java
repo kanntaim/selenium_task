@@ -4,11 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class LoginPage {
-    private final By loginInputLocator =  By.xpath("//span[contains(text(), \"Логин или номер телефона\")" +
-                                                        "or contains(text(), \"Логин\")" +
-                                                        "or contains(text(), \"Введите почту или телефон\")]/../..//input"
-                                                    );
-    private final By passwordInputLocator = By.xpath("//span[contains(text(), \"Пароль\")]/../..//input");
+    private final By loginInputLocator =  By.name("login");
+    private final By passwordInputLocator = By.name("passwd");
 
 
 
