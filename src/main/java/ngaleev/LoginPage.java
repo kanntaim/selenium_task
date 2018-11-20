@@ -1,14 +1,9 @@
 package ngaleev;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
 public class LoginPage {
     private final By loginInputLocator =  By.name("login");
@@ -17,25 +12,24 @@ public class LoginPage {
     private final WebDriverSingleton driver = WebDriverSingleton.getInstance();
 
     public LoginPage() {
+        (new WebDriverWait(driver, 5))
+                .until(ExpectedConditions.elementToBeClickable(loginInputLocator));
         if (!"Авторизация".equals(driver.getTitle())) {
-            throw new IllegalStateException("This is not the main page");
+            throw new IllegalStateException("This is not the login page");
         }
     }
 
     public LoginPage authorize(final String login, String pass){
-        WebElement txbLogin = new WebDriverWait(driver, 60)
-                .ignoring(StaleElementReferenceException.class)
-                .until(new ExpectedCondition<WebElement>() {
-                    @Override
-                    public boolean apply(@Nullable WebDriver driver) { //FIXME https://stackoverflow.com/questions/12967541/how-to-avoid-staleelementreferenceexception-in-selenium
-                        driver.findElement(loginInputLocator).sendKeys(login);
-                        return true;
-                    }
-                });
+        WebDriverWait wait = new WebDriverWait(driver, 5);
 
+        WebElement txbLogin = wait.until(ExpectedConditions.elementToBeClickable(loginInputLocator));
+        txbLogin.sendKeys(login);
+        wait.until(ExpectedConditions.elementToBeClickable(loginInputLocator));
         txbLogin.submit();
-        WebElement txbPassword = driver.findElement(passwordInputLocator);
+
+        WebElement txbPassword = wait.until(ExpectedConditions.elementToBeClickable(passwordInputLocator));
         txbPassword.sendKeys(pass);
+        wait.until(ExpectedConditions.elementToBeClickable(passwordInputLocator));
         txbPassword.submit();
         return this;
     }

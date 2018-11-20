@@ -3,11 +3,11 @@ package ngaleev;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
+    private final By userNameLocator = By.className("user__name");
 
     private final WebDriverSingleton driver = WebDriverSingleton.getInstance();
 
@@ -23,10 +23,15 @@ public class MainPage {
             if(button.isEnabled() && button.isDisplayed()){
                 button.click();
                 driver.switchTab(-1);
+
                 return new LoginPage();
             }
         }
         throw new IllegalStateException("Login button not found");
+    }
+
+    public boolean CheckIsAuthorized(){
+        return true;
     }
 }
 
