@@ -54,20 +54,25 @@ public class MainPage {
 
     public List<String> getPopularGoods(String pageSource){
         String popularGoodsFieldRegexp = "Популярные товары<\\/h3>.*<\\/div><\\/div><\\/div><\\/div><\\/div><\\/div><\\/a><\\/div><\\/div>";
-        String popularGoodsRegexp = "/.*reactid=\"\\d*\">([A-ZА-Я][^<]*?)<.*/gmU";
+        String popularGoodsRegexp = ".*?reactid=\"\\d*\">([A-ZА-Я][^<]*?)<.*?";
         List<String> popularGoods = new LinkedList<>();
+
 
         Pattern popularGoodsFieldPattern = Pattern.compile(popularGoodsFieldRegexp);
         Matcher popularGoodsFieldMatcher = popularGoodsFieldPattern.matcher(pageSource);
-        popularGoodsFieldMatcher.find();
+        if(!popularGoodsFieldMatcher.find()){
+            driver.switchTab(0);
+            return getPopularGoods(pageSource);
+        }
         String popularGoodsField = popularGoodsFieldMatcher.group();
+
 
         Pattern popularGoodsPattern = Pattern.compile(popularGoodsRegexp);
         Matcher popularGoodsMatcher = popularGoodsPattern.matcher(popularGoodsField);
-        popularGoodsMatcher.find();
-        for(int i=0; i<popularGoodsMatcher.groupCount();i++){
-            popularGoods.add(popularGoodsMatcher.group(i));
+        while(popularGoodsMatcher.find()){
+            popularGoods.add(popularGoodsMatcher.group(1));
         }
+
         return popularGoods;
 
     }

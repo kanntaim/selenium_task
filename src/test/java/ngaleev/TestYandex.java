@@ -12,7 +12,7 @@ public class TestYandex {
 
     @BeforeTest
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/resources/drivers/win64/geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "src/resources/drivers/win32/geckodriver.exe");
         driver = WebDriverSingleton.getInstance();
         driver.get("https://market.yandex.ru/");
     }
@@ -25,18 +25,18 @@ public class TestYandex {
     @Test
     public void testCasePopularGoods(){
         MainPage mainPage = new MainPage();
-//        LoginPage loginPage = mainPage.navigateLogin();
-//        assertTrue(driver.getTitle().equals("Авторизация"));
-//
-//        loginPage = loginPage.authorize("r2d2.and.c3po", "25672478r2d2");
-//        driver.returnToMainPage();
-//        assertTrue(mainPage.CheckIsAuthorized("r2d2.and.c3po"));
-//
-//        mainPage = new MainPage();
-//        CategoryPage categoryPage = mainPage.navigateRandomCategory();
-//        assertTrue(categoryPage.compareCategoryNames());
-//
-//        driver.returnToMainPage();
+        LoginPage loginPage = mainPage.navigateLogin();
+        assertTrue(driver.getTitle().equals("Авторизация"));
+
+        loginPage = loginPage.authorize("r2d2.and.c3po", "25672478r2d2");
+        driver.returnToMainPage();
+        assertTrue(mainPage.CheckIsAuthorized("r2d2.and.c3po"));
+
+        mainPage = new MainPage();
+        CategoryPage categoryPage = mainPage.navigateRandomCategory();
+        assertTrue(categoryPage.compareCategoryNames());
+
+        driver.returnToMainPage();
         String pageSource = driver.getPageSource();
         List<String> test = mainPage.getPopularGoods(pageSource);
         return;
