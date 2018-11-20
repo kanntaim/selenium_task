@@ -14,9 +14,6 @@ public class WebDriverSingleton extends FirefoxDriver {
         return ourInstance;
     }
 
-    private WebDriverSingleton() {
-        this.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    }
 
     public void switchTab(int number){
         ArrayList<String> tabs = new ArrayList<>(this.getWindowHandles());

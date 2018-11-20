@@ -2,6 +2,8 @@ package ngaleev;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.regex.Pattern;
 public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
+    private final By popularGoodsLocator = By.xpath("//h3[contains(text(), \"Популярные товары\")]");
 
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
@@ -60,9 +63,12 @@ public class MainPage {
 
         Pattern popularGoodsFieldPattern = Pattern.compile(popularGoodsFieldRegexp);
         Matcher popularGoodsFieldMatcher = popularGoodsFieldPattern.matcher(pageSource);
+
         if(!popularGoodsFieldMatcher.find()){
-            driver.switchTab(0);
-            return getPopularGoods(pageSource);
+            driver.returnToMainPage();
+            WebElement txbLogin = new WebDriverWait(driver, 5)
+                    .until(ExpectedConditions.elementToBeClickable(popularGoodsLocator));
+            return getPopularGoods(driver.getPageSource());
         }
         String popularGoodsField = popularGoodsFieldMatcher.group();
 
