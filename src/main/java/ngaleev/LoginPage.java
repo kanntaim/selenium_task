@@ -25,8 +25,7 @@ public class LoginPage {
         WebElement txbLogin = wait.until(ExpectedConditions.elementToBeClickable(loginInputLocator));
         txbLogin.sendKeys(login);
         wait.until(ExpectedConditions.elementToBeClickable(loginInputLocator));
-        txbLogin.submit();
-
+        if (driver.findElements(passwordInputLocator).isEmpty() || !driver.findElement(passwordInputLocator).isDisplayed()) txbLogin.submit();
         WebElement txbPassword = wait.until(ExpectedConditions.elementToBeClickable(passwordInputLocator));
         txbPassword.sendKeys(pass);
         wait.until(ExpectedConditions.elementToBeClickable(passwordInputLocator));

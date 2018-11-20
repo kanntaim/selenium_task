@@ -15,7 +15,7 @@ public class WebDriverSingleton extends FirefoxDriver {
     }
 
     private WebDriverSingleton() {
-        this.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
+        this.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public void switchTab(int number){
@@ -25,6 +25,12 @@ public class WebDriverSingleton extends FirefoxDriver {
         }else{
             this.switchTo().window(tabs.get(tabs.size()+number));
         }
+    }
+
+    public void returnToMainPage(){
+        this.switchTab(0);
+        this.get("https://market.yandex.ru/");
+        this.navigate().refresh();
     }
 
 }
