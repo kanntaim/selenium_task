@@ -9,7 +9,7 @@ public class LoginPage {
     private final By loginInputLocator =  By.name("login");
     private final By passwordInputLocator = By.name("passwd");
 
-    private final WebDriverSingleton driver = WebDriverSingleton.getInstance();
+    private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
 
     public LoginPage() {
         (new WebDriverWait(driver, 5))

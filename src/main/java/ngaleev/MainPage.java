@@ -1,16 +1,14 @@
 package ngaleev;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -23,12 +21,13 @@ public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
     private final By popularGoodsLocator = By.xpath("//h3[contains(text(), \"Популярные товары\")]");
+    private final By lookForThisLocator = By.xpath("//h3[contains(text(), \"Приглядитесь к этим предложениям\")]");
     private final By userLocator = By.className("header2-nav__user");
     private final By userLogOutLocator = By.cssSelector(".user__logout");
 
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
-    private final WebDriverSingleton driver = WebDriverSingleton.getInstance();
+    private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
 
     public MainPage() {
         if (!driver.getTitle().startsWith("Яндекс.Маркет")) {
@@ -76,8 +75,13 @@ public class MainPage {
 
         if(!popularGoodsFieldMatcher.find()){
             driver.returnToMainPage();
-            WebElement txbLogin = new WebDriverWait(driver, 5)
-                    .until(ExpectedConditions.elementToBeClickable(popularGoodsLocator));
+            WebElement lblLookForThis = new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
+            lblLookForThis.click();
+            Actions action = new Actions(driver);
+            action.sendKeys(Keys.PAGE_DOWN).build().perform();
+            new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
             return getPopularGoods(driver.getPageSource());
         }
         String popularGoodsField = popularGoodsFieldMatcher.group();

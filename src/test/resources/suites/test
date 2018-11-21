@@ -1,6 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Component Tests" verbose="2" annotations="JDK">
     <test name="test">
+        <parameter name="login" value="r2d2.and.c3po"/>
+        <parameter name="password" value="25672478r2d2"/>
         <classes>
             <class name="ngaleev.TestYandex" />
         </classes>
