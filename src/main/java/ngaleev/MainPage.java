@@ -1,20 +1,30 @@
 package ngaleev;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.swing.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
     private final By popularGoodsLocator = By.xpath("//h3[contains(text(), \"Популярные товары\")]");
+    private final By userLocator = By.className("header2-nav__user");
+    private final By userLogOutLocator = By.cssSelector(".user__logout");
 
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
@@ -78,9 +88,29 @@ public class MainPage {
         while(popularGoodsMatcher.find()){
             popularGoods.add(popularGoodsMatcher.group(1));
         }
-
         return popularGoods;
+    }
 
+    public void logOut(){
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)     .withTimeout(30, SECONDS)
+                .pollingEvery(5, SECONDS)
+                .ignoring(NoSuchElementException.class);
+        WebElement user = wait.until(ExpectedConditions.elementToBeClickable(userLocator));
+        Actions actions = new Actions(driver);
+        actions.click(user).build().perform();
+        WebElement userLogOut = new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(userLogOutLocator));
+        userLogOut.click();
+    }
+
+    public boolean CheckIsNotAuthorized() {
+        List<WebElement> loginButtons  = driver.findElements(loginLocator);
+        for(WebElement button: loginButtons){
+            if(button.isEnabled() && button.isDisplayed()){
+                return true;
+            }
+        }
+        return false;
     }
 }
 
