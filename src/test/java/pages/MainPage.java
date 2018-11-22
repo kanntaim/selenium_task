@@ -1,6 +1,6 @@
 package pages;
 
-import framework.drivers.FirefoxWebDriverSingleton;
+import framework.drivers.GeneralWebDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,7 +24,7 @@ public class MainPage {
     private final By userLogOutLocator = By.cssSelector(".user__logout");
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
-    private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
+    private final GeneralWebDriver driver = GeneralWebDriver.getInstance();
 
     public MainPage() {
         if (!driver.getTitle().startsWith("Яндекс.Маркет")) {

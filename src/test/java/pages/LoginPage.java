@@ -1,6 +1,6 @@
 package pages;
 
-import framework.drivers.FirefoxWebDriverSingleton;
+import framework.drivers.GeneralWebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,7 +10,7 @@ public class LoginPage {
     private final By loginInputLocator = By.name("login");
     private final By passwordInputLocator = By.name("passwd");
 
-    private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
+    private final GeneralWebDriver driver = GeneralWebDriver.getInstance();
 
     LoginPage() {
         (new WebDriverWait(driver.getDriver(), 5))
