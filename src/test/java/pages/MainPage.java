@@ -72,16 +72,8 @@ public class MainPage {
 
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
-            String lookForThisLocatorString = String.format(labelLocatorTemplate,"\"Приглядитесь к этим предложениям\"");
-            By lookForThisLocator = By.xpath(lookForThisLocatorString);
-            WebElement lblLookForThis = new WebDriverWait(driver.getDriver(), 10)
-                    .ignoring(NoSuchElementException.class)
-                    .ignoring(TimeoutException.class)
-                    .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
-            lblLookForThis.click();
-            Actions action = new Actions(driver.getDriver());
-            action.sendKeys(Keys.PAGE_DOWN).build().perform();
-            String popularGoodsLocatorString = String.format(labelLocatorTemplate, "\"Популярные товары'");
+            ((JavascriptExecutor)driver.getDriver()).executeScript("window.scrollTo(0,500);");
+            String popularGoodsLocatorString = String.format(labelLocatorTemplate, "\"Популярные товары\"");
             By popularGoodsLocator = By.xpath(popularGoodsLocatorString);
             new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
