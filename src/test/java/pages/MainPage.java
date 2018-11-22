@@ -1,10 +1,7 @@
 package pages;
 
 import framework.drivers.WebDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -19,13 +16,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainPage {
-    private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
+    private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/ancestor::a[@role=\"button\"]");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
-    private final By popularGoodsLocator = By.xpath("//h3[contains(text(), \"Популярные товары\")]");
-    private final By lookForThisLocator = By.xpath("//h3[contains(text(), \"Приглядитесь к этим предложениям\")]");
-    private final By userLocator = By.className("header2-nav__user");
+    private final By userLocator = By.className("n-passport-suggest-popup-opener");
     private final By userLogOutLocator = By.cssSelector(".user__logout");
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
+    private final String labelLocatorTemplate = "//h3[contains(text(), %s)]";
+
 
     private final WebDriver driver = WebDriver.getInstance();
 
@@ -75,12 +72,17 @@ public class MainPage {
 
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
+            String lookForThisLocatorString = String.format(labelLocatorTemplate,"\"Приглядитесь к этим предложениям\"");
+            By lookForThisLocator = By.xpath(lookForThisLocatorString);
             WebElement lblLookForThis = new WebDriverWait(driver.getDriver(), 10)
                     .ignoring(NoSuchElementException.class)
+                    .ignoring(TimeoutException.class)
                     .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
             lblLookForThis.click();
             Actions action = new Actions(driver.getDriver());
             action.sendKeys(Keys.PAGE_DOWN).build().perform();
+            String popularGoodsLocatorString = String.format(labelLocatorTemplate, "\"Популярные товары'");
+            By popularGoodsLocator = By.xpath(popularGoodsLocatorString);
             new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
             return getPopularGoods(driver.getPageSource());
