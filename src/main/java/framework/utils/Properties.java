@@ -1,4 +1,4 @@
-package properties;
+package framework.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,19 +9,25 @@ public class Properties {
 
     private String url;
     private String webdriverPath;
+    private String webdriverName;
 
     private Properties() {
-        String propertyPath = System.getProperty("propertyFilePath");
-        try (BufferedReader propertyReader = new BufferedReader(new FileReader(propertyPath))) {
+        String propertiesPath = System.getProperty("propertiesFilePath");
+        try (BufferedReader propertyReader = new BufferedReader(new FileReader(propertiesPath))) {
             String line;
             while ((line = propertyReader.readLine()) != null) {
                 String[] property = line.split("=");
-                switch (property[0]) {
+                String propertyName = property[0];
+                String propertyValue = property[1];
+                switch (propertyName) {
                     case "url":
-                        url = property[1];
+                        url = propertyValue;
                         break;
                     case "webdriverPath":
-                        webdriverPath = property[1];
+                        webdriverPath = propertyValue;
+                        break;
+                    case "webdriverName":
+                        webdriverName = propertyValue;
                 }
             }
         } catch (IOException e) {
@@ -39,6 +45,10 @@ public class Properties {
 
     public String getWebdriverPath() {
         return webdriverPath;
+    }
+
+    public String getWebdriverName(){
+        return webdriverName;
     }
 
 

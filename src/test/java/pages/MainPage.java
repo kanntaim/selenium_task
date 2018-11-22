@@ -1,6 +1,6 @@
 package pages;
 
-import drivers.FirefoxWebDriverSingleton;
+import framework.drivers.FirefoxWebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;

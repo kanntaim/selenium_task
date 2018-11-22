@@ -68,7 +68,7 @@
                             <configuration>
                                 <systemPropertyVariables>
                                     <!--suppress UnresolvedMavenProperty -->
-                                    <propertyFilePath>${propertyFilePath}</propertyFilePath>
+                                    <propertyFilePath>${propertiesFilePath}</propertyFilePath>
                                 </systemPropertyVariables>
                                 <suiteXmlFiles>
                                     <!--suppress UnresolvedMavenProperty -->

@@ -1,8 +1,8 @@
 package cases;
 
-import csv.CsvWriter;
-import properties.Properties;
-import drivers.FirefoxWebDriverSingleton;
+import framework.utils.CsvWriter;
+import framework.utils.Properties;
+import framework.drivers.FirefoxWebDriverSingleton;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -21,20 +21,19 @@ public class TestYandex {
     private final String authorizeTitle = "Авторизация";
 
     private Properties properties = Properties.getInstance();
-    private String webdriverPath = properties.getWebdriverPath();
     private String url = properties.getUrl();
     private FirefoxWebDriverSingleton driver;
 
     @BeforeTest
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", webdriverPath);
+        System.setProperty(properties.getWebdriverName(), properties.getWebdriverPath());
         driver = FirefoxWebDriverSingleton.getInstance();
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @AfterTest
-    public void shutDown() {
+    public void tearDown() {
         driver.quit();
     }
 

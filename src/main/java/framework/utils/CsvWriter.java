@@ -1,4 +1,4 @@
-package csv;
+package framework.utils;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CsvWriter {
-    private static final String filePath = "target\\files\\popular_goods.csv";
+    private static final String filePath = "target\\popular_goods.csv";
 
     public static boolean createFile(List<String> itemsToWrite) {
         BufferedWriter writer;

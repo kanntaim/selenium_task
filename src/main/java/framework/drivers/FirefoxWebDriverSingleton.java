@@ -1,14 +1,13 @@
-package drivers;
+package framework.drivers;
 
+import framework.utils.Properties;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import properties.Properties;
 
 import java.util.ArrayList;
 
 public class FirefoxWebDriverSingleton extends FirefoxDriver {
 
     private static FirefoxWebDriverSingleton ourInstance = new FirefoxWebDriverSingleton();
-    private final String propertyPath = "src/resources/.property";
     private String url = null;
 
     public static FirefoxWebDriverSingleton getInstance() {
@@ -27,6 +26,7 @@ public class FirefoxWebDriverSingleton extends FirefoxDriver {
     public void returnToMainPage() {
         Properties properties = Properties.getInstance();
         url = properties.getUrl();
+        this.switchTab(0);
         this.get(url);
         this.navigate().refresh();
     }
