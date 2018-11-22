@@ -19,11 +19,9 @@ public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/ancestor::a[@role=\"button\"]");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
     private final By userLocator = By.className("n-passport-suggest-popup-opener");
+    private final By popularGoodsLocator = By.xpath("//h3[contains(text(), \"Популярные товары\")]");
     private final By userLogOutLocator = By.cssSelector(".user__logout");
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
-    private final String labelLocatorTemplate = "//h3[contains(text(), %s)]";
-
-
     private final WebDriver driver = WebDriver.getInstance();
 
     public MainPage() {
@@ -73,8 +71,6 @@ public class MainPage {
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
             ((JavascriptExecutor)driver.getDriver()).executeScript("window.scrollTo(0,500);");
-            String popularGoodsLocatorString = String.format(labelLocatorTemplate, "\"Популярные товары\"");
-            By popularGoodsLocator = By.xpath(popularGoodsLocatorString);
             new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
             return getPopularGoods(driver.getPageSource());
