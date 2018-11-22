@@ -1,7 +1,10 @@
 package pages;
 
 import framework.drivers.WebDriver;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -70,7 +73,7 @@ public class MainPage {
 
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
-            ((JavascriptExecutor)driver.getDriver()).executeScript("window.scrollTo(0,500);");
+            ((JavascriptExecutor) driver.getDriver()).executeScript("window.scrollTo(0,500);");
             new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
             return getPopularGoods(driver.getPageSource());
