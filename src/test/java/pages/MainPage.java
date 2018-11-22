@@ -1,7 +1,10 @@
 package pages;
 
-import framework.drivers.FirefoxWebDriverSingleton;
-import org.openqa.selenium.*;
+import framework.drivers.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -24,7 +27,7 @@ public class MainPage {
     private final By userLogOutLocator = By.cssSelector(".user__logout");
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
-    private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
+    private final WebDriver driver = WebDriver.getInstance();
 
     public MainPage() {
         if (!driver.getTitle().startsWith("Яндекс.Маркет")) {
@@ -94,7 +97,7 @@ public class MainPage {
     }
 
     public void logOut() {
-        Wait<WebDriver> wait = new FluentWait<>(driver.getDriver()).withTimeout(Duration.ofSeconds(20))
+        Wait<org.openqa.selenium.WebDriver> wait = new FluentWait<>(driver.getDriver()).withTimeout(Duration.ofSeconds(20))
                 .pollingEvery(Duration.ofMillis(600))
                 .ignoring(NoSuchElementException.class);
         WebElement user = wait.until(ExpectedConditions.elementToBeClickable(userLocator));

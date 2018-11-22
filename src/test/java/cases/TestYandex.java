@@ -1,8 +1,8 @@
 package cases;
 
+import framework.drivers.WebDriver;
 import framework.utils.CsvWriter;
 import framework.utils.Properties;
-import framework.drivers.FirefoxWebDriverSingleton;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -22,12 +22,12 @@ public class TestYandex {
 
     private Properties properties = Properties.getInstance();
     private String url = properties.getUrl();
-    private FirefoxWebDriverSingleton driver;
+    private WebDriver driver;
 
     @BeforeTest
     public void setUp() {
         System.setProperty(properties.getWebdriverName(), properties.getWebdriverPath());
-        driver = FirefoxWebDriverSingleton.getInstance();
+        driver = WebDriver.getInstance();
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
