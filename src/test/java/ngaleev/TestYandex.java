@@ -43,7 +43,7 @@ public class TestYandex {
 
         loginPage = loginPage.authorize(login, password);
         driver.returnToMainPage();
-        assertTrue(mainPage.CheckIsAuthorized(login));
+        assertTrue(mainPage.isAuthorized(login));
 
         mainPage = new MainPage();
         CategoryPage categoryPage = mainPage.navigateRandomCategory();

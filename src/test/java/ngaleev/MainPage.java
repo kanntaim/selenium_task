@@ -57,7 +57,7 @@ public class MainPage {
     }
 
 
-    public boolean CheckIsAuthorized(String login){
+    public boolean isAuthorized(String login){
         String userNameLocatorString = String.format(userNameLocatorTemplate, login.substring(1));
         By userNameLocator = By.xpath(userNameLocatorString);
         List<WebElement> userName = driver.findElements(userNameLocator);
