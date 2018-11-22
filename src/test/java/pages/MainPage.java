@@ -73,6 +73,7 @@ public class MainPage {
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
             WebElement lblLookForThis = new WebDriverWait(driver.getDriver(), 10)
+                    .ignoring(NoSuchElementException.class)
                     .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
             lblLookForThis.click();
             Actions action = new Actions(driver.getDriver());
