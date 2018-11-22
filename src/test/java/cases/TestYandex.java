@@ -20,7 +20,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class TestYandex {
-    private final String propertyPath = "src/resources/.property";
+    private final String propertyPath = System.getProperty("propertyFilePath");
     private final String authorizeTitle = "Авторизация";
 
     private String webdriverPath;
