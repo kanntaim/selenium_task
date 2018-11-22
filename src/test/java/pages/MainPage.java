@@ -1,5 +1,6 @@
-package ngaleev;
+package pages;
 
+import drivers.FirefoxWebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,8 +8,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -35,10 +35,10 @@ public class MainPage {
         }
     }
 
-    public LoginPage navigateLogin(){
-        List<WebElement> loginButtons  = driver.findElements(loginLocator);
-        for(WebElement button: loginButtons){
-            if(button.isEnabled() && button.isDisplayed()){
+    public LoginPage navigateLogin() {
+        List<WebElement> loginButtons = driver.findElements(loginLocator);
+        for (WebElement button : loginButtons) {
+            if (button.isEnabled() && button.isDisplayed()) {
                 button.click();
                 driver.switchTab(-1);
 
@@ -48,24 +48,24 @@ public class MainPage {
         throw new IllegalStateException("Login button not found");
     }
 
-    public CategoryPage navigateRandomCategory(){
+    public CategoryPage navigateRandomCategory() {
         List<WebElement> categoryList = driver.findElements(categoriesLocator);
         Random rand = new Random();
-        WebElement btnRandomCategory = categoryList.get(rand.nextInt(categoryList.size()-2));
+        WebElement btnRandomCategory = categoryList.get(rand.nextInt(categoryList.size() - 2));
         btnRandomCategory.click();
         return new CategoryPage();
     }
 
 
-    public boolean isAuthorized(String login){
+    public boolean isAuthorized(String login) {
         String userNameLocatorString = String.format(userNameLocatorTemplate, login.substring(1));
         By userNameLocator = By.xpath(userNameLocatorString);
         List<WebElement> userName = driver.findElements(userNameLocator);
         return !userName.isEmpty();
     }
 
-    public List<String> getPopularGoods(String pageSource){
-        String popularGoodsFieldRegexp = "Популярные товары<\\/h3>.*<\\/div><\\/div><\\/div><\\/div><\\/div><\\/div><\\/a><\\/div><\\/div>";
+    public List<String> getPopularGoods(String pageSource) {
+        String popularGoodsFieldRegexp = "Популярные товары</h3>.*</div></div></div></div></div></div></a></div></div>";
         String popularGoodsRegexp = ".*?reactid=\"\\d*\">([A-ZА-Я][^<]*?)<.*?";
         List<String> popularGoods = new LinkedList<>();
 
@@ -73,7 +73,7 @@ public class MainPage {
         Pattern popularGoodsFieldPattern = Pattern.compile(popularGoodsFieldRegexp);
         Matcher popularGoodsFieldMatcher = popularGoodsFieldPattern.matcher(pageSource);
 
-        if(!popularGoodsFieldMatcher.find()){
+        if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
             WebElement lblLookForThis = new WebDriverWait(driver, 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
@@ -89,15 +89,15 @@ public class MainPage {
 
         Pattern popularGoodsPattern = Pattern.compile(popularGoodsRegexp);
         Matcher popularGoodsMatcher = popularGoodsPattern.matcher(popularGoodsField);
-        while(popularGoodsMatcher.find()){
+        while (popularGoodsMatcher.find()) {
             popularGoods.add(popularGoodsMatcher.group(1));
         }
         return popularGoods;
     }
 
-    public void logOut(){
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)     .withTimeout(30, SECONDS)
-                .pollingEvery(5, SECONDS)
+    public void logOut() {
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(20))
+                .pollingEvery(Duration.ofMillis(600))
                 .ignoring(NoSuchElementException.class);
         WebElement user = wait.until(ExpectedConditions.elementToBeClickable(userLocator));
         Actions actions = new Actions(driver);
@@ -108,9 +108,9 @@ public class MainPage {
     }
 
     public boolean CheckIsNotAuthorized() {
-        List<WebElement> loginButtons  = driver.findElements(loginLocator);
-        for(WebElement button: loginButtons){
-            if(button.isEnabled() && button.isDisplayed()){
+        List<WebElement> loginButtons = driver.findElements(loginLocator);
+        for (WebElement button : loginButtons) {
+            if (button.isEnabled() && button.isDisplayed()) {
                 return true;
             }
         }

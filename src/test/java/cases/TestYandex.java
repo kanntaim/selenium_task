@@ -1,6 +1,14 @@
-package ngaleev;
+package cases;
 
-import org.testng.annotations.*;
+import csv.CsvWriter;
+import drivers.FirefoxWebDriverSingleton;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import pages.CategoryPage;
+import pages.LoginPage;
+import pages.MainPage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,13 +16,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class TestYandex {
     private final String propertyPath = "src/resources/.property";
     private final String authorizeTitle = "Авторизация";
 
-    private String browser;
     private String webdriverPath;
     private String url;
     private FirefoxWebDriverSingleton driver;
@@ -29,19 +37,19 @@ public class TestYandex {
     }
 
     @AfterTest
-    public void shutDown(){
+    public void shutDown() {
         driver.quit();
     }
 
 
-    @Parameters({"login","password"})
+    @Parameters({"login", "password"})
     @Test
-    public void testCasePopularGoods(String login, String password){
+    public void testCasePopularGoods(String login, String password) {
         MainPage mainPage = new MainPage();
         LoginPage loginPage = mainPage.navigateLogin();
-        assertTrue(driver.getTitle().equals(authorizeTitle));
+        assertEquals(driver.getTitle(), authorizeTitle);
 
-        loginPage = loginPage.authorize(login, password);
+        loginPage.authorize(login, password);
         driver.returnToMainPage();
         assertTrue(mainPage.isAuthorized(login));
 
@@ -59,14 +67,12 @@ public class TestYandex {
         assertTrue(mainPage.CheckIsNotAuthorized());
     }
 
-    private boolean setProperties(){
-        try(BufferedReader propertyReader= new BufferedReader(new FileReader(propertyPath))) {
-            browser = propertyReader.readLine();
+    private boolean setProperties() {
+        try (BufferedReader propertyReader = new BufferedReader(new FileReader(propertyPath))) {
             url = propertyReader.readLine();
             webdriverPath = propertyReader.readLine();
             return true;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

@@ -1,4 +1,4 @@
-package ngaleev;
+package drivers;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -7,32 +7,31 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FirefoxWebDriverSingleton extends FirefoxDriver{
-
-    private final  String propertyPath = "src/resources/.property";
+public class FirefoxWebDriverSingleton extends FirefoxDriver {
 
     private static FirefoxWebDriverSingleton ourInstance = new FirefoxWebDriverSingleton();
+    private final String propertyPath = "src/resources/.property";
     private String url = null;
 
     public static FirefoxWebDriverSingleton getInstance() {
         return ourInstance;
     }
-    public void switchTab(int number){
+
+    public void switchTab(int number) {
         ArrayList<String> tabs = new ArrayList<>(this.getWindowHandles());
-        if (number>=0){
+        if (number >= 0) {
             this.switchTo().window(tabs.get(number));
-        }else{
-            this.switchTo().window(tabs.get(tabs.size()+number));
+        } else {
+            this.switchTo().window(tabs.get(tabs.size() + number));
         }
     }
 
-    public void returnToMainPage(){
-        if(url == null){
-            try(BufferedReader propertyReader= new BufferedReader(new FileReader(propertyPath))) {
+    public void returnToMainPage() {
+        if (url == null) {
+            try (BufferedReader propertyReader = new BufferedReader(new FileReader(propertyPath))) {
                 propertyReader.readLine();
                 url = propertyReader.readLine();
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }

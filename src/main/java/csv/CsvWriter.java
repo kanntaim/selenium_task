@@ -1,4 +1,4 @@
-package ngaleev;
+package csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -13,15 +13,19 @@ public class CsvWriter {
     private static final String filePath = "target\\files\\popular_goods.csv";
 
     public static boolean createFile(List<String> itemsToWrite) {
-        BufferedWriter writer = null;
-        CSVPrinter csvPrinter = null;
+        BufferedWriter writer;
+        CSVPrinter csvPrinter;
 
         try {
             File outputFile = new File(filePath);
-            outputFile.createNewFile();
+            if(!outputFile.exists()){
+                if(!outputFile.createNewFile()){
+                    return false;
+                }
+            }
             writer = new BufferedWriter(new FileWriter(filePath));
             csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Name"));
-            for(String itemName: itemsToWrite){
+            for (String itemName : itemsToWrite) {
                 csvPrinter.printRecord(itemName);
             }
             csvPrinter.flush();

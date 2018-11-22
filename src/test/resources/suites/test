@@ -4,7 +4,7 @@
         <parameter name="login" value="r2d2.and.c3po"/>
         <parameter name="password" value="25672478r2d2"/>
         <classes>
-            <class name="ngaleev.TestYandex" />
+            <class name="cases.TestYandex" />
         </classes>
     </test>
 </suite>
