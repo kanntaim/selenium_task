@@ -1,10 +1,8 @@
 package drivers;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
+import properties.Properties;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FirefoxWebDriverSingleton extends FirefoxDriver {
@@ -27,16 +25,8 @@ public class FirefoxWebDriverSingleton extends FirefoxDriver {
     }
 
     public void returnToMainPage() {
-        if (url == null) {
-            try (BufferedReader propertyReader = new BufferedReader(new FileReader(propertyPath))) {
-                propertyReader.readLine();
-                url = propertyReader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
-        this.switchTab(0);
+        Properties properties = Properties.getInstance();
+        url = properties.getUrl();
         this.get(url);
         this.navigate().refresh();
     }

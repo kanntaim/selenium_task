@@ -15,8 +15,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 public class MainPage {
     private final By loginLocator = By.xpath("//span[contains(text(), \"Войти\")]/../..");
     private final By categoriesLocator = By.xpath("//ul[@class=\"topmenu__list\"]/.//li");
@@ -24,7 +22,6 @@ public class MainPage {
     private final By lookForThisLocator = By.xpath("//h3[contains(text(), \"Приглядитесь к этим предложениям\")]");
     private final By userLocator = By.className("header2-nav__user");
     private final By userLogOutLocator = By.cssSelector(".user__logout");
-
     private final String userNameLocatorTemplate = "//span[contains(text(), \"%s\")]";
 
     private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();

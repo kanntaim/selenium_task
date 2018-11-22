@@ -18,8 +18,8 @@ public class CsvWriter {
 
         try {
             File outputFile = new File(filePath);
-            if(!outputFile.exists()){
-                if(!outputFile.createNewFile()){
+            if (!outputFile.exists()) {
+                if (!outputFile.createNewFile()) {
                     return false;
                 }
             }
