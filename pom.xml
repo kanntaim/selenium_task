@@ -69,6 +69,8 @@
                                 <systemPropertyVariables>
                                     <!--suppress UnresolvedMavenProperty -->
                                     <propertyFilePath>${propertiesFilePath}</propertyFilePath>
+                                    <!--suppress UnresolvedMavenProperty -->
+                                    <csvDirectoryToSave>${csvDirectoryToSave}</csvDirectoryToSave>
                                 </systemPropertyVariables>
                                 <suiteXmlFiles>
                                     <!--suppress UnresolvedMavenProperty -->

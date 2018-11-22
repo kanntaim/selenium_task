@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CsvWriter {
-    private static final String filePath = "target\\popular_goods.csv";
+    private static final String filePath = System.getProperty("csvDirectoryToSave");
 
     public static boolean createFile(List<String> itemsToWrite) {
         BufferedWriter writer;
