@@ -13,7 +13,7 @@ public class LoginPage {
     private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
 
     LoginPage() {
-        (new WebDriverWait(driver, 5))
+        (new WebDriverWait(driver.getDriver(), 5))
                 .until(ExpectedConditions.elementToBeClickable(loginInputLocator));
         if (!"Авторизация".equals(driver.getTitle())) {
             throw new IllegalStateException("This is not the login page");
@@ -21,7 +21,7 @@ public class LoginPage {
     }
 
     public void authorize(final String login, String pass) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver.getDriver(), 5);
 
         WebElement txbLogin = wait.until(ExpectedConditions.elementToBeClickable(loginInputLocator));
         txbLogin.sendKeys(login);

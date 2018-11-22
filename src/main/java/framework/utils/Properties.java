@@ -10,6 +10,7 @@ public class Properties {
     private String url;
     private String webdriverPath;
     private String webdriverName;
+    private String browserName;
 
     private Properties() {
         String propertiesPath = System.getProperty("propertiesFilePath");
@@ -28,6 +29,9 @@ public class Properties {
                         break;
                     case "webdriverName":
                         webdriverName = propertyValue;
+                        break;
+                    case "browserName":
+                        browserName = propertyValue;
                 }
             }
         } catch (IOException e) {
@@ -47,8 +51,12 @@ public class Properties {
         return webdriverPath;
     }
 
-    public String getWebdriverName(){
+    public String getWebdriverName() {
         return webdriverName;
+    }
+
+    public String getBrowserName() {
+        return browserName;
     }
 
 

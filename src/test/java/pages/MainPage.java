@@ -72,12 +72,12 @@ public class MainPage {
 
         if (!popularGoodsFieldMatcher.find()) {
             driver.returnToMainPage();
-            WebElement lblLookForThis = new WebDriverWait(driver, 10)
+            WebElement lblLookForThis = new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(lookForThisLocator));
             lblLookForThis.click();
-            Actions action = new Actions(driver);
+            Actions action = new Actions(driver.getDriver());
             action.sendKeys(Keys.PAGE_DOWN).build().perform();
-            new WebDriverWait(driver, 10)
+            new WebDriverWait(driver.getDriver(), 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(popularGoodsLocator));
             return getPopularGoods(driver.getPageSource());
         }
@@ -93,13 +93,13 @@ public class MainPage {
     }
 
     public void logOut() {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(20))
+        Wait<WebDriver> wait = new FluentWait<>(driver.getDriver()).withTimeout(Duration.ofSeconds(20))
                 .pollingEvery(Duration.ofMillis(600))
                 .ignoring(NoSuchElementException.class);
         WebElement user = wait.until(ExpectedConditions.elementToBeClickable(userLocator));
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(driver.getDriver());
         actions.click(user).build().perform();
-        WebElement userLogOut = new WebDriverWait(driver, 5)
+        WebElement userLogOut = new WebDriverWait(driver.getDriver(), 5)
                 .until(ExpectedConditions.elementToBeClickable(userLogOutLocator));
         userLogOut.click();
     }

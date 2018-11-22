@@ -12,7 +12,7 @@ public class CategoryPage {
     private final FirefoxWebDriverSingleton driver = FirefoxWebDriverSingleton.getInstance();
 
     CategoryPage() {
-        (new WebDriverWait(driver, 5))
+        (new WebDriverWait(driver.getDriver(), 5))
                 .until(ExpectedConditions.visibilityOfElementLocated(categoryNameLocator));
     }
 
